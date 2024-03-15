@@ -9,11 +9,8 @@ class DataProvider:
         self.cur = con.cursor()
 
     @classmethod
-    def update(cls, attribute_name, new_value):
-        if hasattr(cls, attribute_name):
-            setattr(cls, attribute_name, new_value)
-        else:
-            setattr(cls, attribute_name, new_value)
+    def set(cls, attribute_name, new_value):
+        setattr(cls, attribute_name, new_value)
 
     @classmethod
     def get(cls, attribute_name):

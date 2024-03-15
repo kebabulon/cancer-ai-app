@@ -1,5 +1,7 @@
 import flet as ft
 from router.router import Router
+from router.navigator import Navigator
+
 from providers.data_provider import DataProvider
 
 def main(page: ft.Page):
@@ -10,6 +12,9 @@ def main(page: ft.Page):
     
     page.window_width = page.window_min_width
     page.window_height = page.window_min_height
+
+    page.padding = 0
+    page.theme_mode = ft.ThemeMode.DARK
 
     router = Router(page)
 
@@ -22,6 +27,7 @@ def main(page: ft.Page):
     page.on_view_pop = view_pop
 
     DataProvider.initialize()
+    Navigator.initialize(page)
 
     page.go("/login")
 

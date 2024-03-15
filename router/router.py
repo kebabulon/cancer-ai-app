@@ -4,18 +4,6 @@ from router.routes import ROUTES
 
 from pages.login import Login
 
-
-class Navigator:
-    page: ft.Page
-
-    @classmethod
-    def set_page(self, page):
-        self.page = page
-    
-    @classmethod
-    def go(self, path, **params):
-        self.page.go(path, **params)
-
 class Router:
     def __init__(self, page: ft.Page):
         self.page = page
@@ -35,4 +23,5 @@ class Router:
         self.page.views.append(
             self.pages[path]()
         )
+
         self.page.update()
