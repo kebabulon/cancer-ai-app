@@ -20,7 +20,7 @@ class Login(ft.View):
 
         def login(e):
             # TODO: do sqlite3 queries here
-            Navigator.go(ROUTES.LOGIN_ROUTE, pop=True)
+            Navigator.go(ROUTES.DASHBOARD_ROUTE)
 
         self.controls = [
             ft.Row(

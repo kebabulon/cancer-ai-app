@@ -3,6 +3,7 @@ from router.router import Router
 from router.navigator import Navigator
 
 from providers.data_provider import DataProvider
+from providers.app_prodiver import AppProvider
 
 def main(page: ft.Page):
     page.title = "CancerAI"
@@ -14,6 +15,12 @@ def main(page: ft.Page):
     page.window_height = page.window_min_height
 
     page.padding = 0
+
+    theme = ft.Theme()
+    theme.page_transitions.macos = ft.PageTransitionTheme.CUPERTINO
+    theme.page_transitions.linux = ft.PageTransitionTheme.CUPERTINO
+    theme.page_transitions.windows = ft.PageTransitionTheme.CUPERTINO
+    page.theme = theme
     page.theme_mode = ft.ThemeMode.DARK
 
     router = Router(page)
@@ -27,7 +34,7 @@ def main(page: ft.Page):
     page.on_view_pop = view_pop
 
     DataProvider.initialize()
-    Navigator.initialize(page)
+    AppProvider.page = page
 
     page.go("/login")
 

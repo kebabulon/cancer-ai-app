@@ -1,12 +1,9 @@
 import flet as ft
 
-class Navigator:
-    page: ft.Page
+from providers.app_prodiver import AppProvider
 
-    @classmethod
-    def initialize(self, page):
-        self.page = page
-    
+class Navigator:
     @classmethod
     def go(self, path, **params):
-        self.page.go(path, **params)
+        page = AppProvider.page
+        page.go(path, **params)

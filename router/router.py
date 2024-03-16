@@ -3,12 +3,14 @@ from urllib.parse import parse_qs, urlparse
 from router.routes import ROUTES
 
 from pages.login import Login
+from pages.dashboard import Dashboard
 
 class Router:
     def __init__(self, page: ft.Page):
         self.page = page
         self.pages = {
             ROUTES.LOGIN_ROUTE: Login,
+            ROUTES.DASHBOARD_ROUTE: Dashboard,
         }
 
     def route_change(self, route):
