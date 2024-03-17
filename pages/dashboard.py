@@ -1,4 +1,5 @@
 import flet as ft
+
 from router.routes import ROUTES
 from router.navigator import Navigator
 
@@ -7,6 +8,7 @@ from providers.app_prodiver import AppProvider
 
 from compontents.dashboard.stats import Stats
 from compontents.dashboard.analyze import Analyze
+
 
 class Dashboard(ft.View):
     def __init__(self):
@@ -19,28 +21,42 @@ class Dashboard(ft.View):
             content=self.stats
         )
 
-        def change_active_view(view):
-            self.active_view.content = view
-            self.active_view.update()
-
         self.appbar = ft.AppBar(
             title=ft.Text("Dashboard"),
             bgcolor=ft.colors.SURFACE_VARIANT,
             actions=[
                 ft.Row(
-                    controls=[
-                        ft.ElevatedButton("Журнал", on_click=lambda _: change_active_view(self.stats)),
-                        ft.ElevatedButton("Анализ", on_click=lambda _: change_active_view(self.analyze))
-                    ]
-                )
-            ]
-
+                    alignment=ft.MainAxisAlignment.CENTER,
+                ),
+            ],
         )
+
+        self.navigation_bar = ft.NavigationBar(
+            destinations=[
+                ft.NavigationDestination(
+                    icon=ft.icons.PERSON,
+                    label="Журнал",
+                ),
+                 ft.NavigationDestination(
+                    icon=ft.icons.SEARCH,
+                    label="Анализ",
+                ),
+           ]
+        )
+
+        self.navigation_bar.on_change = self.nav_bar_on_change
 
         self.controls = [
             self.active_view,
         ]
     
+    def nav_bar_on_change(self, _):
+        if self.navigation_bar.selected_index == 0:
+            self.active_view.content = self.stats
+        elif self.navigation_bar.selected_index == 1:
+            self.active_view.content = self.analyze
+        self.active_view.update()
+
     def rehydrate(self):
         # update stats from pop up using page.views[0]
         self.stats.update()

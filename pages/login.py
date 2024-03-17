@@ -1,4 +1,5 @@
 import flet as ft
+
 from router.routes import ROUTES
 from router.navigator import Navigator
 

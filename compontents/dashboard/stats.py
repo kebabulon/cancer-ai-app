@@ -1,5 +1,6 @@
 import flet as ft
 
+# TODO: maybe change to UserControl
 class Stats(ft.Column):
     def __init__(self):
         super().__init__()

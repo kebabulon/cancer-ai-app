@@ -1,4 +1,5 @@
 import flet as ft
+
 from router.router import Router
 from router.navigator import Navigator
 
@@ -23,18 +24,19 @@ def main(page: ft.Page):
     page.theme = theme
     page.theme_mode = ft.ThemeMode.DARK
 
-    router = Router(page)
+    AppProvider.page = page
+    DataProvider.initialize()
+
+    router = Router()
 
     def view_pop(view):
         page.views.pop()
         top_view = page.views[-1]
-        page.go(top_view.route)
+        page.route = top_view.route
+        page.update()
 
     page.on_route_change = router.route_change
     page.on_view_pop = view_pop
-
-    DataProvider.initialize()
-    AppProvider.page = page
 
     page.go("/login")
 
