@@ -10,7 +10,7 @@ class Login(ft.View):
     def __init__(self):
         super().__init__(route=ROUTES.LOGIN_ROUTE)
 
-        self.id_field = ft.TextField(
+        self.patient_id_field = ft.TextField(
             label="ID",
             filled=True,
         )
@@ -21,7 +21,9 @@ class Login(ft.View):
 
         def login(e):
             # TODO: do sqlite3 queries here
-            Navigator.go(ROUTES.DASHBOARD_ROUTE)
+            result = DataProvider.verify_login(int(patient_id_field.value), int(med_id_field.value))
+            if result:
+                Navigator.go(ROUTES.DASHBOARD_ROUTE)
 
         self.controls = [
             ft.Row(
@@ -29,7 +31,7 @@ class Login(ft.View):
                     ft.Column(
                         [
                             ft.Row(
-                                controls=[self.id_field]
+                                controls=[self.patient_id_field]
                             ),
                             ft.Row(
                                 controls=[self.med_id_field]

@@ -21,8 +21,10 @@ class Dashboard(ft.View):
             content=self.stats
         )
 
+        # add logout button
+        # show med's name in the top right corner near logout button
         self.appbar = ft.AppBar(
-            title=ft.Text("Dashboard"),
+            title=ft.Text("CancerAI"),
             bgcolor=ft.colors.SURFACE_VARIANT,
             actions=[
                 ft.Row(
