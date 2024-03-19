@@ -2,6 +2,7 @@ import sqlite3
  
 class DataProvider:
     cur: sqlite3.Cursor
+    cancer_provider: CancerProvider
     patient_id: int
     med_id: int
 
@@ -36,6 +37,7 @@ class DataProvider:
                     med_id integer not null \
                     cancer text not null \
                     result text not null \
+                    comment text not null \
                     )")
     
     @classmethod
@@ -57,3 +59,9 @@ class DataProvider:
     def get_med_info(self):
         result = self.cut.execute("select first_name, last_name from med where id = ?", (self.med_id)).fetchone()
         if result: return result
+   
+    @classmethod
+    def cancer_predict(self):
+        if not cancer_provider:
+            cancer_provider = CancerProvider()
+
