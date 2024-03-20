@@ -1,4 +1,5 @@
 import sqlite3
+from providers.cancer_provider import CancerProvider
  
 class DataProvider:
     cur: sqlite3.Cursor
@@ -8,7 +9,7 @@ class DataProvider:
 
     @classmethod
     def initialize(self):
-        con = sqlite3.connect("cancerai.db")
+        con = sqlite3.connect("cancerai.db", check_same_thread=False)
         self.cur = con.cursor()
         self.create_db()
     
@@ -18,25 +19,25 @@ class DataProvider:
        if exists: return
        # for dates: https://www.sqlite.org/lang_datefunc.html
        # calculate age from byear
-       cur.execute("create table patient( \
-                    id integer not null primary key \
-                    first_name text not null \
-                    last_name text not null \
+       self.cur.execute("create table patient( \
+                    id integer not null primary key, \
+                    first_name text not null, \
+                    last_name text not null, \
                     byear text not null \
                     )")
 
-       cur.execute("create table med( \
-                    id integer not null primary key \
-                    first_name text not null \
+       self.cur.execute("create table med( \
+                    id integer not null primary key, \
+                    first_name text not null, \
                     last_name text not null \
                     )")
 
-       cur.execute("create table result( \
-                    id integer not null primary key \
-                    patient_id integer not null \
-                    med_id integer not null \
-                    cancer text not null \
-                    result text not null \
+       self.cur.execute("create table result( \
+                    id integer not null primary key, \
+                    patient_id integer not null, \
+                    med_id integer not null, \
+                    cancer text not null, \
+                    result text not null, \
                     comment text not null \
                     )")
     
@@ -62,6 +63,6 @@ class DataProvider:
    
     @classmethod
     def cancer_predict(self):
-        if not cancer_provider:
-            cancer_provider = CancerProvider()
+        if not self.cancer_provider:
+            self.cancer_provider = CancerProvider()
 

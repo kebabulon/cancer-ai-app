@@ -21,9 +21,12 @@ class Login(ft.View):
 
         def login(e):
             # TODO: do sqlite3 queries here
-            result = DataProvider.verify_login(int(patient_id_field.value), int(med_id_field.value))
-            if result:
-                Navigator.go(ROUTES.DASHBOARD_ROUTE)
+            try:
+                result = DataProvider.verify_login(int(self.patient_id_field.value), int(self.med_id_field.value))
+                if result:
+                    Navigator.go(ROUTES.DASHBOARD_ROUTE)
+            except ValueError:
+                pass
 
         self.controls = [
             ft.Row(
